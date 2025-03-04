@@ -3,12 +3,12 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#2D1A36] text-white">
+    <main className="min-h-screen bg-[#360A0F] text-white">
       {/* Hero Section */}
       <section className="relative min-h-screen pt-16 flex items-center justify-center overflow-hidden">
         {/* Background with subtle animation */}
-        <div className="absolute inset-0 bg-[#2D1A36] opacity-90 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#2D1A36]/0 via-[#2D1A36]/50 to-[#2D1A36] z-10"></div>
+        <div className="absolute inset-0 bg-[#360A0F] opacity-90 z-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#360A0F]/0 via-[#360A0F]/50 to-[#360A0F] z-10"></div>
           <div className="absolute top-0 left-0 w-full h-full bg-[url('/images/soundwave.svg')] bg-repeat-x bg-contain animate-pulse opacity-20 z-0"></div>
         </div>
         
@@ -39,7 +39,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-[#231429]">
+      <section className="py-20 bg-[#23070A]">
         <div className="container mx-auto px-6">
           <h2 className="font-serif text-4xl md:text-5xl text-center mb-16 text-[#DFBD69]">The Band Manager Experience</h2>
           
@@ -68,7 +68,7 @@ export default function Home() {
             ].map((feature, index) => (
               <div 
                 key={index} 
-                className="bg-[#2D1A36] p-8 rounded-xl border border-[#DFBD69]/20 hover:border-[#DFBD69] transition-all group hover:shadow-[0_0_30px_rgba(54,226,236,0.2)]"
+                className="bg-[#360A0F] p-8 rounded-xl border border-[#DFBD69]/20 hover:border-[#DFBD69] transition-all group hover:shadow-[0_0_30px_rgba(54,226,236,0.2)]"
               >
                 <div className="text-4xl mb-4">{feature.icon}</div>
                 <h3 className="text-[#DFBD69] text-xl font-serif mb-3">{feature.title}</h3>
@@ -80,7 +80,7 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-[#2D1A36]">
+      <section className="py-20 bg-[#360A0F]">
         <div className="container mx-auto px-6">
           <h2 className="font-serif text-4xl md:text-5xl text-center mb-16 text-[#DFBD69]">How It Works</h2>
           
@@ -115,7 +115,7 @@ export default function Home() {
       </section>
 
       {/* Subscription Plans */}
-      <section className="py-20 bg-[#231429]">
+      <section className="py-20 bg-[#23070A]">
         <div className="container mx-auto px-6">
           <h2 className="font-serif text-4xl md:text-5xl text-center mb-16 text-[#DFBD69]">Subscription Options</h2>
           
@@ -164,8 +164,8 @@ export default function Home() {
                 className={`
                   rounded-xl p-8 border 
                   ${plan.highlighted 
-                    ? 'bg-gradient-to-b from-[#2D1A36] to-[#231429] border-[#DFBD69] shadow-[0_0_30px_rgba(223,189,105,0.3)]' 
-                    : 'bg-[#2D1A36] border-[#DFBD69]/20'}
+                    ? 'bg-gradient-to-b from-[#360A0F] to-[#23070A] border-[#DFBD69] shadow-[0_0_30px_rgba(223,189,105,0.3)]' 
+                    : 'bg-[#360A0F] border-[#DFBD69]/20'}
                 `}
               >
                 <h3 className="text-2xl font-serif mb-2 text-[#DFBD69]">{plan.title}</h3>
@@ -196,7 +196,7 @@ export default function Home() {
       </section>
 
       {/* Coming Soon */}
-      <section className="py-20 bg-[#2D1A36]">
+      <section className="py-20 bg-[#360A0F]">
         <div className="container mx-auto px-6">
           <h2 className="font-serif text-4xl md:text-5xl text-center mb-16 text-[#DFBD69]">Coming Soon</h2>
           
@@ -208,7 +208,7 @@ export default function Home() {
               { title: "Virtual Merch", icon: "👕" },
               { title: "Cross-platform Sharing", icon: "🔄" },
             ].map((item, index) => (
-              <div key={index} className="p-6 bg-[#231429] rounded-xl border border-[#DFBD69]/20 hover:border-[#DFBD69] transition-all">
+              <div key={index} className="p-6 bg-[#23070A] rounded-xl border border-[#DFBD69]/20 hover:border-[#DFBD69] transition-all">
                 <div className="text-4xl mb-3">{item.icon}</div>
                 <h3 className="text-[#36E2EC]">{item.title}</h3>
               </div>
@@ -218,7 +218,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-b from-[#231429] to-[#2D1A36]">
+      <section className="py-20 bg-gradient-to-b from-[#23070A] to-[#360A0F]">
         <div className="container mx-auto px-6 text-center">
           <h2 className="font-serif text-4xl md:text-6xl mb-6 text-[#DFBD69]">
             Ready to Start Your Band's Journey?
@@ -236,7 +236,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-[#1A1221] border-t border-[#DFBD69]/20">
+      <footer className="py-12 bg-[#1A0608] border-t border-[#DFBD69]/20">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-6 md:mb-0">

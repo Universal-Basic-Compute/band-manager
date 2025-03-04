@@ -4,8 +4,8 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 45, 26, 54;
-  --background-end-rgb: 26, 18, 33;
+  --background-start-rgb: 54, 10, 15; /* Changed to red velvet */
+  --background-end-rgb: 35, 7, 10; /* Darker red velvet */
 }
 
 body {

@@ -153,16 +153,16 @@ Ready to start your band's journey?
 Band Manager features a bold, immersive visual style that captures the energy and creativity of the music world:
 
 ### Design Language
-- **Luxurious Nightlife Aesthetic**: Rich velvet tones create depth and sophistication, reinforced by accents of gold and electric neon blue
+- **Luxurious Nightlife Aesthetic**: Rich red velvet tones create depth and sophistication, reinforced by accents of gold and electric neon blue
 - **Premium Color Palette**:
-  - Deep velvet purple (#2D1A36) for primary backgrounds, creating an intimate, upscale venue feeling
+  - Deep red velvet (#360A0F) for primary backgrounds, creating an intimate, upscale venue feeling
   - Metallic gold (#DFBD69) for premium elements, call-to-actions, and achievement indicators
   - Electric neon blue (#36E2EC) for interactive elements, highlighting, and audio visualizations
 - **Dynamic Elements**: Subtle animations that respond to user actions, creating a sense of live energy
 - **Glowing Elements**: Interface components with light bloom effects that evoke stage lighting
 
 ### User Interface
-- **Velvet Foundation**: Rich, deep purple backgrounds (velvet tones) create an intimate, premium feel
+- **Red Velvet Foundation**: Rich, deep red backgrounds (velvet tones) create an intimate, premium feel
 - **Gold Accents for Premium Features**: Metallic gold highlights for important actions and achievements
 - **Neon Blue for Technical Elements**: Electric blue for audio visualizations, interactive elements, and technical data
 - **Card-Based Information**: Band, song, and fan information presented in draggable, interactive cards with subtle depth effects
