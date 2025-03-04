@@ -27,8 +27,15 @@ export default function ChatInterface({
   actionButtonText = 'Continue',
   onActionButtonClick,
 }: ChatInterfaceProps) {
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  // Update messages when initialMessages changes
+  useEffect(() => {
+    if (initialMessages.length > 0) {
+      setMessages(initialMessages);
+    }
+  }, [initialMessages]);
 
   // Scroll to bottom whenever messages change
   useEffect(() => {
@@ -39,30 +46,8 @@ export default function ChatInterface({
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
     
-    // Add user message
-    const userMessage: Message = {
-      id: `user-${messages.length}`,
-      role: 'user',
-      content,
-      timestamp: new Date(),
-    };
-    
-    setMessages(prev => [...prev, userMessage]);
-    
     // Call the parent handler to process the message
     await onSendMessage(content);
-  };
-
-  // This function would be called by the parent component to add an assistant message
-  const addAssistantMessage = (content: string) => {
-    const assistantMessage: Message = {
-      id: `assistant-${messages.length}`,
-      role: 'assistant',
-      content,
-      timestamp: new Date(),
-    };
-    
-    setMessages(prev => [...prev, assistantMessage]);
   };
 
   return (
