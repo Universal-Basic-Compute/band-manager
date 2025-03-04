@@ -233,7 +233,7 @@ export default function Home() {
           </p>
           <Link 
             href="/signup" 
-            className="px-10 py-5 bg-[#DFBD69] text-[#2D1A36] rounded-full font-bold text-xl hover:bg-[#DFBD69]/90 transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(223,189,105,0.5)]"
+            className="px-10 py-5 bg-[#DFBD69] text-[#360A0F] rounded-full font-bold text-xl hover:bg-[#DFBD69]/90 transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(223,189,105,0.5)]"
           >
             Create Your Band Now
           </Link>

@@ -1,7 +1,14 @@
 'use client';
 
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { Message } from '../components/Chat/ChatInterface';
+
+// Define the Message type directly here instead of importing it
+export type Message = {
+  id: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  timestamp: Date;
+};
 
 type ChatContextType = {
   messages: Message[];

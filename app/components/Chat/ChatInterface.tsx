@@ -4,13 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import ChatHeader from './ChatHeader';
-
-export type Message = {
-  id: string;
-  role: 'user' | 'assistant' | 'system';
-  content: string;
-  timestamp: Date;
-};
+import { Message } from '../../contexts/ChatContext';
 
 type ChatInterfaceProps = {
   title: string;
