@@ -38,15 +38,21 @@ body {
   }
   
   .btn-primary {
-    @apply bg-[#DFBD69] text-[#360A0F] hover:bg-[#DFBD69]/90 font-bold shadow-[0_0_15px_rgba(223,189,105,0.5)];
+    @apply bg-[#DFBD69] text-[#360A0F] hover:bg-[#DFBD69]/90 font-bold;
+    box-shadow: 0 0 15px rgba(223, 189, 105, 0.5);
   }
   
   .btn-secondary {
-    @apply border-2 border-[#36E2EC] text-[#36E2EC] hover:bg-[#36E2EC]/10 font-bold shadow-[0_0_15px_rgba(54,226,236,0.3)];
+    @apply border-2 border-[#36E2EC] text-[#36E2EC] hover:bg-[#36E2EC]/10 font-bold;
+    box-shadow: 0 0 15px rgba(54, 226, 236, 0.3);
   }
 
   .card {
-    @apply bg-[#360A0F] rounded-xl border border-[#DFBD69]/20 hover:border-[#DFBD69] transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(223,189,105,0.3)];
+    @apply bg-[#360A0F] rounded-xl border border-[#DFBD69]/20 hover:border-[#DFBD69] transition-all duration-300 shadow-lg;
+  }
+  
+  .card:hover {
+    box-shadow: 0 0 20px rgba(223, 189, 105, 0.3);
   }
 }
 
