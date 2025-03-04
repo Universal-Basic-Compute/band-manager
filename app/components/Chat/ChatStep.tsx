@@ -32,7 +32,7 @@ export default function ChatStep({
   const [isComplete, setIsComplete] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: '1',
+      id: 'initial-message',
       role: 'assistant',
       content: initialPrompt,
       timestamp: new Date(),
@@ -73,7 +73,7 @@ export default function ChatStep({
     try {
       // Add user message
       const userMessage: Message = {
-        id: Date.now().toString(),
+        id: `user-${messages.length}`,
         role: 'user',
         content,
         timestamp: new Date(),
@@ -86,7 +86,7 @@ export default function ChatStep({
       
       // Add assistant response
       const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: `assistant-${messages.length + 1}`,
         role: 'assistant',
         content: response,
         timestamp: new Date(),

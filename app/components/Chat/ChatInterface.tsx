@@ -41,7 +41,7 @@ export default function ChatInterface({
     
     // Add user message
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: `user-${messages.length}`,
       role: 'user',
       content,
       timestamp: new Date(),
@@ -56,7 +56,7 @@ export default function ChatInterface({
   // This function would be called by the parent component to add an assistant message
   const addAssistantMessage = (content: string) => {
     const assistantMessage: Message = {
-      id: Date.now().toString(),
+      id: `assistant-${messages.length}`,
       role: 'assistant',
       content,
       timestamp: new Date(),

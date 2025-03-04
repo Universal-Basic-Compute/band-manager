@@ -33,7 +33,7 @@ export default function RootLayout({
         <AuthContext>
           <ChatProvider>
             <Header />
-            <div className="pt-16 min-h-screen flex flex-col"> {/* Add padding to account for fixed header */}
+            <div className="pt-16 min-h-screen flex flex-col">
               <main className="flex-grow">
                 {children}
               </main>
