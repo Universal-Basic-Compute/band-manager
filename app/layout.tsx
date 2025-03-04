@@ -1,5 +1,6 @@
 import './globals.css';
 import { Playfair_Display, Inter } from 'next/font/google';
+import Header from './components/Header';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -26,7 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body className="font-sans bg-[#2D1A36] text-white">
-        {children}
+        <Header />
+        <div className="pt-16"> {/* Add padding to account for fixed header */}
+          {children}
+        </div>
       </body>
     </html>
   );

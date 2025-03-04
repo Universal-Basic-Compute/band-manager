@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#2D1A36] text-white">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen pt-16 flex items-center justify-center overflow-hidden">
         {/* Background with subtle animation */}
         <div className="absolute inset-0 bg-[#2D1A36] opacity-90 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-[#2D1A36]/0 via-[#2D1A36]/50 to-[#2D1A36] z-10"></div>
