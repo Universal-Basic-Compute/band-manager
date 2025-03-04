@@ -6,15 +6,20 @@ export default function Home() {
     <main className="min-h-screen bg-[#360A0F] text-white">
       {/* Hero Section */}
       <section className="relative min-h-screen pt-16 flex items-center justify-center overflow-hidden">
-        {/* Background with subtle animation */}
-        <div className="absolute inset-0 bg-[#360A0F] opacity-90 z-0">
+        {/* Dynamic background with animation */}
+        <div className="absolute inset-0 bg-[#360A0F] z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-[#360A0F]/0 via-[#360A0F]/50 to-[#360A0F] z-10"></div>
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('/images/soundwave.svg')] bg-repeat-x bg-contain animate-pulse opacity-20 z-0"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-[url('/images/soundwave.svg')] bg-repeat-x bg-contain animate-pulse opacity-30 z-0"></div>
+          
+          {/* Add some floating elements for visual impact */}
+          <div className="absolute top-1/4 left-1/5 w-24 h-24 rounded-full bg-[#DFBD69]/10 animate-pulse" style={{animationDelay: '0.5s'}}></div>
+          <div className="absolute bottom-1/3 right-1/4 w-32 h-32 rounded-full bg-[#36E2EC]/10 animate-pulse" style={{animationDelay: '1.2s'}}></div>
+          <div className="absolute top-2/3 left-1/3 w-16 h-16 rounded-full bg-[#DFBD69]/10 animate-pulse" style={{animationDelay: '0.8s'}}></div>
         </div>
         
         <div className="container mx-auto px-6 relative z-20">
           <div className="flex flex-col items-center text-center">
-            <h1 className="font-serif text-6xl md:text-8xl mb-6 text-[#DFBD69] font-bold tracking-tight">
+            <h1 className="font-serif text-6xl md:text-8xl mb-6 text-[#DFBD69] font-bold tracking-tight animate-glow">
               Band Manager
             </h1>
             <p className="text-xl md:text-2xl mb-10 max-w-3xl">
@@ -23,13 +28,13 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-6">
               <Link 
                 href="/create-band" 
-                className="px-8 py-4 bg-[#DFBD69] text-[#2D1A36] rounded-full font-bold text-lg hover:bg-[#DFBD69]/90 transition-all transform hover:scale-105 shadow-[0_0_15px_rgba(223,189,105,0.5)]"
+                className="px-8 py-4 bg-[#DFBD69] text-[#360A0F] rounded-full font-bold text-lg hover:bg-[#DFBD69]/90 transition-all transform hover:scale-105 shadow-[0_0_15px_rgba(223,189,105,0.5)]"
               >
                 Start Your Band
               </Link>
               <Link 
                 href="/explore" 
-                className="px-8 py-4 bg-transparent border-2 border-[#36E2EC] text-[#36E2EC] rounded-full font-bold text-lg hover:bg-[#36E2EC]/10 transition-all"
+                className="px-8 py-4 bg-transparent border-2 border-[#36E2EC] text-[#36E2EC] rounded-full font-bold text-lg hover:bg-[#36E2EC]/10 transition-all shadow-[0_0_15px_rgba(54,226,236,0.3)]"
               >
                 Explore Demos
               </Link>
@@ -68,9 +73,9 @@ export default function Home() {
             ].map((feature, index) => (
               <div 
                 key={index} 
-                className="bg-[#360A0F] p-8 rounded-xl border border-[#DFBD69]/20 hover:border-[#DFBD69] transition-all group hover:shadow-[0_0_30px_rgba(54,226,236,0.2)]"
+                className="bg-[#360A0F] p-8 rounded-xl border border-[#DFBD69]/20 hover:border-[#DFBD69] transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_30px_rgba(54,226,236,0.3)]"
               >
-                <div className="text-4xl mb-4">{feature.icon}</div>
+                <div className="text-5xl mb-4 bg-gradient-to-r from-[#DFBD69] to-[#36E2EC] inline-block rounded-full p-3 shadow-[0_0_15px_rgba(223,189,105,0.5)]">{feature.icon}</div>
                 <h3 className="text-[#DFBD69] text-xl font-serif mb-3">{feature.title}</h3>
                 <p className="text-gray-300">{feature.description}</p>
               </div>
