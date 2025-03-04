@@ -1,4 +1,4 @@
-import { Message } from '../../contexts/ChatContext';
+import type { Message } from '../../contexts/ChatContext';
 
 type ChatMessageProps = {
   message: Message;
