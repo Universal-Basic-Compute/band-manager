@@ -1,79 +1,68 @@
 'use client';
 
-import { useState } from 'react';
-import { ChatProvider } from '../contexts/ChatContext';
-import ChatInterface, { Message } from '../components/Chat/ChatInterface';
-
-// Mock API call - in a real app, this would call your backend
-const mockSendMessage = async (message: string): Promise<string> => {
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  // Simple response logic
-  if (message.toLowerCase().includes('name')) {
-    return "That's a great band name! What genre of music will your band focus on?";
-  } else if (message.toLowerCase().includes('genre')) {
-    return "Excellent choice! Now, tell me about the visual aesthetic you envision for your band.";
-  } else {
-    return "I understand. Let's continue developing your band's identity. What else would you like to share about your vision?";
-  }
-};
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import StepProgress from '../components/Chat/StepProgress';
 
 export default function CreateBandPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      role: 'assistant',
-      content: "Welcome to Band Manager! I'm your creative assistant, ready to help you form your virtual band. Let's start with the basics - what would you like to name your band?",
-      timestamp: new Date(),
-    },
-  ]);
-
-  const handleSendMessage = async (content: string) => {
-    setIsLoading(true);
-    
-    try {
-      // Call mock API
-      const response = await mockSendMessage(content);
-      
-      // Add assistant response
-      setMessages(prev => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          role: 'assistant',
-          content: response,
-          timestamp: new Date(),
-        },
-      ]);
-    } catch (error) {
-      console.error('Error sending message:', error);
-      // Handle error - maybe add an error message to the chat
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const router = useRouter();
+  
+  const steps = [
+    { id: 'identity', title: 'Identity', isCompleted: false, isCurrent: true },
+    { id: 'style', title: 'Musical Style', isCompleted: false, isCurrent: false },
+    { id: 'visual', title: 'Visual Style', isCompleted: false, isCurrent: false },
+    { id: 'performance', title: 'Performance', isCompleted: false, isCurrent: false },
+    { id: 'growth', title: 'Growth Strategy', isCompleted: false, isCurrent: false },
+  ];
 
   return (
     <div className="container mx-auto px-6 py-12">
       <div className="max-w-4xl mx-auto">
         <h1 className="font-serif text-4xl md:text-5xl mb-6 text-[#DFBD69] font-bold">Create Your Band</h1>
         <p className="text-xl mb-10">
-          Let's start by defining your band's identity. Our AI assistant will guide you through the process.
+          Follow these steps to define your band's identity, style, and vision. Our AI assistants will guide you through each stage of the process.
         </p>
         
-        <div className="h-[600px]">
-          <ChatInterface
-            title="Band Creation Assistant"
-            description="I'll help you define your band's identity, style, and vision."
-            initialMessages={messages}
-            onSendMessage={handleSendMessage}
-            isLoading={isLoading}
-            showActionButton={messages.length > 5}
-            actionButtonText="Continue to Music Style"
-            onActionButtonClick={() => console.log('Moving to next step')}
-          />
+        <StepProgress steps={steps} />
+        
+        <div className="bg-[#23070A] p-8 rounded-xl border border-[#DFBD69]/20">
+          <h2 className="text-2xl font-serif mb-4 text-[#DFBD69]">Band Creation Process</h2>
+          <p className="mb-6">
+            Creating your virtual band involves defining five key aspects that will shape your band's identity and future. 
+            Each step builds on the previous one to create a cohesive band concept.
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            {steps.map((step) => (
+              <div key={step.id} className="bg-[#360A0F] p-6 rounded-xl border border-[#DFBD69]/20">
+                <h3 className="text-xl font-serif mb-2 text-[#DFBD69]">{step.title}</h3>
+                {step.id === 'identity' && (
+                  <p className="text-gray-300">Define your band's name, backstory, values, and overall concept.</p>
+                )}
+                {step.id === 'style' && (
+                  <p className="text-gray-300">Establish your band's genre, influences, and unique sound.</p>
+                )}
+                {step.id === 'visual' && (
+                  <p className="text-gray-300">Create your band's visual aesthetic, imagery, and overall look.</p>
+                )}
+                {step.id === 'performance' && (
+                  <p className="text-gray-300">Define how your band performs and interacts with audiences.</p>
+                )}
+                {step.id === 'growth' && (
+                  <p className="text-gray-300">Plan how your band will build an audience and develop its career.</p>
+                )}
+              </div>
+            ))}
+          </div>
+          
+          <div className="flex justify-center">
+            <Link 
+              href="/create-band/identity" 
+              className="px-8 py-4 bg-[#DFBD69] text-[#2D1A36] rounded-full font-bold text-lg hover:bg-[#DFBD69]/90 transition-all transform hover:scale-105 shadow-[0_0_15px_rgba(223,189,105,0.5)]"
+            >
+              Start Band Creation
+            </Link>
+          </div>
         </div>
       </div>
     </div>

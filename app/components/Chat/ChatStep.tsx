@@ -10,6 +10,7 @@ type ChatStepProps = {
   chatTitle: string;
   chatDescription?: string;
   initialPrompt: string;
+  systemPrompt?: string;
   nextStep?: string;
   onComplete?: (messages: Message[]) => void;
   apiEndpoint?: string; // For real implementation
@@ -21,6 +22,7 @@ export default function ChatStep({
   chatTitle,
   chatDescription,
   initialPrompt,
+  systemPrompt,
   nextStep,
   onComplete,
   apiEndpoint,
@@ -46,10 +48,23 @@ export default function ChatStep({
     // return fetch(apiEndpoint, {
     //   method: 'POST',
     //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ message: content, history: messages }),
+    //   body: JSON.stringify({ 
+    //     message: content, 
+    //     history: messages,
+    //     systemPrompt: systemPrompt 
+    //   }),
     // }).then(res => res.json()).then(data => data.response);
     
-    return `I received your message: "${content}". Let's continue developing this aspect of your band.`;
+    // For now, return a more contextual response based on the step
+    if (content.toLowerCase().includes('name') || content.toLowerCase().includes('identity')) {
+      return "That's a great band name! Tell me more about the backstory or origin of your band. How did the members come together?";
+    } else if (content.toLowerCase().includes('genre') || content.toLowerCase().includes('music')) {
+      return "Excellent choice of genre! Which artists or bands are your main influences for this sound?";
+    } else if (content.toLowerCase().includes('visual') || content.toLowerCase().includes('look')) {
+      return "I love that visual direction! What kind of color palette do you envision for your band's imagery?";
+    } else {
+      return `I received your message: "${content}". Let's continue developing this aspect of your band.`;
+    }
   };
 
   const handleSendMessage = async (content: string) => {
