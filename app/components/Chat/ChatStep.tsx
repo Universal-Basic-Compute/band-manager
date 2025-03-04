@@ -52,29 +52,6 @@ export default function ChatStep({
     return null;
   }
 
-  // Mock API call - replace with real API in production
-  const sendMessage = async (content: string): Promise<string> => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // In a real implementation, you would call your API here
-    // return sendChatMessage(content, messages, systemPrompt);
-    
-    // For now, return a more contextual response based on the step
-    if (content.toLowerCase().includes('name') || content.toLowerCase().includes('identity')) {
-      return "That's a great band name! Tell me more about the backstory or origin of your band. How did the members come together?";
-    } else if (content.toLowerCase().includes('genre') || content.toLowerCase().includes('music')) {
-      return "Excellent choice of genre! Which artists or bands are your main influences for this sound?";
-    } else if (content.toLowerCase().includes('visual') || content.toLowerCase().includes('look')) {
-      return "I love that visual direction! What kind of color palette do you envision for your band's imagery?";
-    } else if (content.toLowerCase().includes('lyrics') || content.toLowerCase().includes('words')) {
-      return "These lyrics have potential! How do you envision the chorus connecting to this theme?";
-    } else if (content.toLowerCase().includes('concept') || content.toLowerCase().includes('idea')) {
-      return "That's a compelling concept for a song! What emotions do you want listeners to feel when they hear it?";
-    } else {
-      return `I received your message: "${content}". Let's continue developing this aspect of your project.`;
-    }
-  };
 
   const handleSendMessage = async (content: string) => {
     setIsLoading(true);
@@ -91,10 +68,10 @@ export default function ChatStep({
       
       setMessages(prev => [...prev, userMessage]);
       
-      // Get response
+      // Get response from Claude API
       let response;
       try {
-        response = await sendMessage(content);
+        response = await sendChatMessage(content, messages, systemPrompt);
       } catch (error) {
         console.error('API error:', error);
         response = "I'm sorry, there was an error processing your request. Please try again.";
