@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -14,6 +14,35 @@ export default function Login() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const errorParam = searchParams.get("error");
+
+  useEffect(() => {
+    if (errorParam) {
+      switch (errorParam) {
+        case "OAuthSignin":
+          setError("An error occurred during the OAuth sign-in process. Please try again.");
+          break;
+        case "OAuthCallback":
+          setError("An error occurred during the OAuth callback. Please try again.");
+          break;
+        case "OAuthCreateAccount":
+          setError("There was an error creating your account. Please try again.");
+          break;
+        case "EmailCreateAccount":
+          setError("There was an error creating your account. Please try again.");
+          break;
+        case "Callback":
+          setError("There was an error during the callback process. Please try again.");
+          break;
+        case "AccessDenied":
+          setError("Access denied. You do not have permission to sign in.");
+          break;
+        default:
+          setError("An error occurred during sign in. Please try again.");
+          break;
+      }
+    }
+  }, [errorParam]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -188,7 +188,7 @@ export default function Home() {
                 <button 
                   className={`w-full py-3 rounded-full font-bold transition-all transform hover:scale-105 
                     ${plan.highlighted 
-                      ? 'bg-[#DFBD69] text-[#2D1A36] shadow-[0_0_15px_rgba(223,189,105,0.5)]' 
+                      ? 'bg-[#DFBD69] text-[#360A0F] shadow-[0_0_15px_rgba(223,189,105,0.5)]' 
                       : 'bg-transparent border-2 border-[#36E2EC] text-[#36E2EC] hover:bg-[#36E2EC]/10'}`
                   }
                 >
