@@ -19,7 +19,7 @@ export default function DashboardPage() {
             </p>
             <Link 
               href="/create-song" 
-              className="px-6 py-3 bg-[#DFBD69] text-[#2D1A36] rounded-full font-bold text-sm hover:bg-[#DFBD69]/90 transition-all inline-block"
+              className="px-6 py-3 bg-[#DFBD69] text-[#360A0F] rounded-full font-bold text-sm hover:bg-[#DFBD69]/90 transition-all inline-block"
             >
               Create a Song
             </Link>
