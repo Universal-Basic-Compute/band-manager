@@ -28,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="bg-[#360A0F] text-white">
+    <html lang="en">
+      <body className={`bg-[#360A0F] text-white ${playfair.variable} ${inter.variable}`}>
         <AuthContext>
           <ChatProvider>
             <Header />
