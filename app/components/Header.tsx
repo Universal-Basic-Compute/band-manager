@@ -41,6 +41,9 @@ export default function Header() {
           <div className="hidden md:flex items-center space-x-4">
             {session ? (
               <>
+                <Link href="/dashboard" className="text-white hover:text-[#36E2EC] transition-colors">
+                  Dashboard
+                </Link>
                 <span className="text-white">Hi, {session.user?.name?.split(' ')[0]}</span>
                 <button 
                   onClick={() => signOut({ callbackUrl: '/' })}
@@ -126,6 +129,13 @@ export default function Header() {
               <div className="flex flex-col space-y-2 pt-4 border-t border-[#DFBD69]/20">
                 {session ? (
                   <>
+                    <Link 
+                      href="/dashboard" 
+                      className="text-white hover:text-[#36E2EC] transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Dashboard
+                    </Link>
                     <span className="text-white">Hi, {session.user?.name?.split(' ')[0]}</span>
                     <button 
                       onClick={() => {
