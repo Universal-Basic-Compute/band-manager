@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import ChatInterface, { Message } from '../../components/Chat/ChatInterface';
+import ChatInterface from '../../components/Chat/ChatInterface';
+import { Message } from '../../contexts/ChatContext';
 import { songCreationPrompts } from '../../data/songCreationPrompts';
+import { sendChatMessage } from '../../utils/api';
 
 export default function SongGenerationPage() {
   const router = useRouter();
@@ -11,31 +13,35 @@ export default function SongGenerationPage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [songData, setSongData] = useState<any>(null);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      role: 'assistant',
-      content: "Now it's time to generate your song! Let's review the details and make any final adjustments before creating your track. Is there anything specific about the production you'd like to emphasize?",
-      timestamp: new Date(),
-    },
-  ]);
+  const [mounted, setMounted] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  // Mock API call - replace with real API in production
-  const sendMessage = async (content: string): Promise<string> => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // In a real implementation, you would call your API here
-    return "I've noted your production preferences. We're almost ready to generate your song. Any other elements you want to emphasize or adjust before we create the track?";
-  };
+  useEffect(() => {
+    setMounted(true);
+    setMessages([
+      {
+        id: 'initial-message',
+        role: 'assistant',
+        content: "Now it's time to generate your song! Let's review the details and make any final adjustments before creating your track. Is there anything specific about the production you'd like to emphasize?",
+        timestamp: new Date(),
+      },
+    ]);
+  }, []);
+
+  // If not mounted yet, return a simple loading state
+  if (!mounted) {
+    return null;
+  }
 
   const handleSendMessage = async (content: string) => {
     setIsLoading(true);
+    setError(null);
     
     try {
       // Add user message
       const userMessage: Message = {
-        id: Date.now().toString(),
+        id: `user-${messages.length}`,
         role: 'user',
         content,
         timestamp: new Date(),
@@ -43,12 +49,19 @@ export default function SongGenerationPage() {
       
       setMessages(prev => [...prev, userMessage]);
       
-      // Get response
-      const response = await sendMessage(content);
+      // Get response from Claude API
+      let response;
+      try {
+        response = await sendChatMessage(content, messages, songCreationPrompts.song);
+      } catch (error) {
+        console.error('API error:', error);
+        response = "I'm sorry, there was an error processing your request. Please try again.";
+        setError('Failed to get a response. Please try again.');
+      }
       
       // Add assistant response
       const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: `assistant-${messages.length + 1}`,
         role: 'assistant',
         content: response,
         timestamp: new Date(),
@@ -61,7 +74,7 @@ export default function SongGenerationPage() {
         setIsComplete(true);
       }
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error('Error in handleSendMessage:', error);
     } finally {
       setIsLoading(false);
     }
@@ -83,7 +96,7 @@ export default function SongGenerationPage() {
       
       // Add completion message
       const completionMessage: Message = {
-        id: Date.now().toString(),
+        id: `completion-${messages.length}`,
         role: 'assistant',
         content: "Your song has been successfully generated! You can now listen to it, save it to your library, or continue to the album creation step.",
         timestamp: new Date(),
@@ -93,10 +106,11 @@ export default function SongGenerationPage() {
       
     } catch (error) {
       console.error('Error generating song:', error);
+      setError('Failed to generate song. Please try again.');
       
       // Add error message
       const errorMessage: Message = {
-        id: Date.now().toString(),
+        id: `error-${messages.length}`,
         role: 'assistant',
         content: "I'm sorry, there was an error generating your song. Please try again.",
         timestamp: new Date(),
@@ -116,6 +130,12 @@ export default function SongGenerationPage() {
         <p className="text-xl mb-10">
           Finalize your song details and generate your track with AI technology.
         </p>
+        
+        {error && (
+          <div className="bg-red-500/20 border border-red-500 p-4 rounded-md text-white mb-6">
+            {error}
+          </div>
+        )}
         
         {songData ? (
           <div className="bg-[#360A0F] p-8 rounded-xl border border-[#DFBD69]/20 mb-8">

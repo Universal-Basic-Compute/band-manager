@@ -105,6 +105,12 @@ export default function FanInteractionPage() {
           Connect with your virtual fans and build relationships with your audience.
         </p>
         
+        {error && (
+          <div className="bg-red-500/20 border border-red-500 p-4 rounded-md text-white mb-6">
+            {error}
+          </div>
+        )}
+        
         <div className="bg-[#360A0F] p-6 rounded-xl border border-[#DFBD69]/20 mb-8">
           <h2 className="text-xl font-serif mb-4 text-[#DFBD69]">Your Growing Fan Base</h2>
           <div className="flex space-x-4 overflow-x-auto pb-2">
