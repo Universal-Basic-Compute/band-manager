@@ -2,6 +2,7 @@ import './globals.css';
 import { Playfair_Display, Inter } from 'next/font/google';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import AuthContext from './context/AuthContext';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -28,13 +29,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body className="bg-[#360A0F] text-white">
-        <Header />
-        <div className="pt-16 min-h-screen flex flex-col"> {/* Add padding to account for fixed header */}
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-        </div>
+        <AuthContext>
+          <Header />
+          <div className="pt-16 min-h-screen flex flex-col"> {/* Add padding to account for fixed header */}
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </AuthContext>
       </body>
     </html>
   );

@@ -3,9 +3,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { useSession, signOut } from 'next-auth/react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <header className="fixed w-full bg-[#1A0608]/90 backdrop-blur-md z-50 border-b border-[#DFBD69]/20">
@@ -34,18 +36,32 @@ export default function Header() {
 
           {/* Auth Buttons - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link 
-              href="/login" 
-              className="px-4 py-2 text-[#36E2EC] border border-[#36E2EC] rounded-full hover:bg-[#36E2EC]/10 transition-colors"
-            >
-              Log In
-            </Link>
-            <Link 
-              href="/signup" 
-              className="px-4 py-2 bg-[#DFBD69] text-[#2D1A36] rounded-full hover:bg-[#DFBD69]/90 transition-colors"
-            >
-              Sign Up
-            </Link>
+            {session ? (
+              <>
+                <span className="text-white">Hi, {session.user?.name?.split(' ')[0]}</span>
+                <button 
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="px-4 py-2 text-[#36E2EC] border border-[#36E2EC] rounded-full hover:bg-[#36E2EC]/10 transition-colors"
+                >
+                  Log Out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link 
+                  href="/login" 
+                  className="px-4 py-2 text-[#36E2EC] border border-[#36E2EC] rounded-full hover:bg-[#36E2EC]/10 transition-colors"
+                >
+                  Log In
+                </Link>
+                <Link 
+                  href="/signup" 
+                  className="px-4 py-2 bg-[#DFBD69] text-[#2D1A36] rounded-full hover:bg-[#DFBD69]/90 transition-colors"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -98,20 +114,37 @@ export default function Header() {
                 About
               </Link>
               <div className="flex flex-col space-y-2 pt-4 border-t border-[#DFBD69]/20">
-                <Link 
-                  href="/login" 
-                  className="px-4 py-2 text-center text-[#36E2EC] border border-[#36E2EC] rounded-full hover:bg-[#36E2EC]/10 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Log In
-                </Link>
-                <Link 
-                  href="/signup" 
-                  className="px-4 py-2 text-center bg-[#DFBD69] text-[#2D1A36] rounded-full hover:bg-[#DFBD69]/90 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Sign Up
-                </Link>
+                {session ? (
+                  <>
+                    <span className="text-white">Hi, {session.user?.name?.split(' ')[0]}</span>
+                    <button 
+                      onClick={() => {
+                        signOut({ callbackUrl: '/' });
+                        setIsMenuOpen(false);
+                      }}
+                      className="px-4 py-2 text-center text-[#36E2EC] border border-[#36E2EC] rounded-full hover:bg-[#36E2EC]/10 transition-colors"
+                    >
+                      Log Out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link 
+                      href="/login" 
+                      className="px-4 py-2 text-center text-[#36E2EC] border border-[#36E2EC] rounded-full hover:bg-[#36E2EC]/10 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Log In
+                    </Link>
+                    <Link 
+                      href="/signup" 
+                      className="px-4 py-2 text-center bg-[#DFBD69] text-[#2D1A36] rounded-full hover:bg-[#DFBD69]/90 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )}
               </div>
             </nav>
           </div>
