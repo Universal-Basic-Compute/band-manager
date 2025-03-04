@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="font-sans bg-[#360A0F] text-white">
+      <body className="bg-[#360A0F] text-white">
         <Header />
         <div className="pt-16"> {/* Add padding to account for fixed header */}
           {children}
