@@ -23,6 +23,9 @@ export default function Header() {
             <Link href="/create-band" className="text-white hover:text-[#36E2EC] transition-colors">
               Create Band
             </Link>
+            <Link href="/create-song" className="text-white hover:text-[#36E2EC] transition-colors">
+              Create Song
+            </Link>
             <Link href="/explore" className="text-white hover:text-[#36E2EC] transition-colors">
               Explore
             </Link>
@@ -91,6 +94,13 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Create Band
+              </Link>
+              <Link 
+                href="/create-song" 
+                className="text-white hover:text-[#36E2EC] transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Create Song
               </Link>
               <Link 
                 href="/explore" 
