@@ -4,7 +4,7 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 54, 10, 15; /* Changed to red velvet */
+  --background-start-rgb: 54, 10, 15; /* Red velvet */
   --background-end-rgb: 35, 7, 10; /* Darker red velvet */
 }
 
@@ -22,5 +22,48 @@ body {
 @layer base {
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-playfair), ui-serif, Georgia, serif;
+  }
+}
+
+/* Add some additional base styles */
+@layer components {
+  .container {
+    @apply px-4 mx-auto max-w-7xl sm:px-6 lg:px-8;
+  }
+  
+  .btn {
+    @apply px-4 py-2 rounded-full transition-all duration-200;
+  }
+  
+  .btn-primary {
+    @apply bg-[#DFBD69] text-[#360A0F] hover:bg-[#DFBD69]/90;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-[#36E2EC] text-[#36E2EC] hover:bg-[#36E2EC]/10;
+  }
+}
+
+/* Add some custom animations */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(223, 189, 105, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(223, 189, 105, 0.8);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Ensure the soundwave animation works */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.3;
   }
 }
