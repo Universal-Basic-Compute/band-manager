@@ -12,6 +12,7 @@
     "@anthropic-ai/sdk": "^0.39.0",
     "airtable": "^0.12.2",
     "next": "15.2.1",
+    "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "suno-ai": "^1.0.1"
