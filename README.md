@@ -1,52 +1,36 @@
-# Band Manager
-
-Create, manage, and grow your virtual band with AI. Band Manager is an innovative platform that lets you craft your band's identity, produce real music, and build a fan base through intuitive AI-assisted workflows.
-
-## Overview
-
-Band Manager combines creative expression with advanced AI to generate authentic music that reflects your artistic vision. Create songs you can actually listen to, build albums you can share, and watch your virtual band grow through simulated performances and fan interactions.
-
-## Features
-
-- **Create Your Band**: Shape your band's identity, musical style, visual aesthetic, and growth strategy
-- **Produce Real Music**: Generate professional-quality tracks through Suno's AI music technology
-- **Experience Virtual Performances**: Watch your band perform at virtual venues with audience reactions
-- **Build Your Fan Base**: Interact with virtual fans who provide feedback on your music
-
-## Technical Foundation
-
-Band Manager is built on:
-- **Next.js front-end** deployed on Vercel
-- **Airtable database** for band, song, and fan data
-- **Claude AI** powering creative guidance and narrative experiences
-- **Suno API** generating professional-quality music
-
-## Subscription Options
-
-- **Basic Pass**: Create up to 2 bands, generate 5 songs per month
-- **Pro Pass**: Create up to 5 bands, generate 15 songs per month, advanced features
-- **Legend Pass**: Unlimited bands, generate 50 songs per month, complete ecosystem
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-1. Sign up at [bandmanager.app](https://bandmanager.app)
-2. Create your first band
-3. Define your band's identity and style
-4. Create your first song through the guided process
-5. Release your music and monitor fan reactions
+First, run the development server:
 
-## Coming Soon
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-- Mobile App
-- Collaboration Mode
-- Enhanced Visuals
-- Virtual Merch
-- Cross-platform Sharing
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## License
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-[License information here]
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Contact
+## Learn More
 
-[Contact information here]
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
