@@ -1,22 +1,31 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import ChatInterface, { Message } from '../../components/Chat/ChatInterface';
+import ChatInterface from '../../components/Chat/ChatInterface';
+import { Message } from '../../contexts/ChatContext';
 import { songCreationPrompts } from '../../data/songCreationPrompts';
+import { sendChatMessage } from '../../utils/api';
 
 export default function FanInteractionPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [currentFan, setCurrentFan] = useState(0);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      role: 'assistant',
-      content: "After your performance, several fans are eager to connect with you! Let me introduce you to Jamie, a 22-year-old college student who discovered your music tonight: \"Your performance was amazing! I especially loved the energy during the chorus of your song. What inspired you to create that particular sound?\"",
-      timestamp: new Date(),
-    },
-  ]);
+  const [mounted, setMounted] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+    setMessages([
+      {
+        id: 'initial-message',
+        role: 'assistant',
+        content: "After your performance, several fans are eager to connect with you! Let me introduce you to Jamie, a 22-year-old college student who discovered your music tonight: \"Your performance was amazing! I especially loved the energy during the chorus of your song. What inspired you to create that particular sound?\"",
+        timestamp: new Date(),
+      },
+    ]);
+  }, []);
 
   const fans = [
     {
@@ -39,33 +48,19 @@ export default function FanInteractionPage() {
     }
   ];
 
-  // Mock API call - replace with real API in production
-  const sendMessage = async (content: string): Promise<string> => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // In a real implementation, you would call your API here with the system prompt
-    
-    // Switch to next fan after a couple exchanges
-    if (messages.length > 4 && currentFan < fans.length - 1) {
-      const nextFan = currentFan + 1;
-      setCurrentFan(nextFan);
-      
-      const fan = fans[nextFan];
-      return `Jamie waves goodbye with a smile. Now here's ${fan.name}, a ${fan.age}-year-old ${fan.occupation} ${fan.avatar}: "I've been following your band's development and I'm really impressed with your sound. It reminds me a bit of [reference artist] but with your own unique twist. How do you see your music evolving in the future?"`;
-    }
-    
-    // Regular fan response
-    return "\"That's so interesting! I can definitely hear those influences in your music. I've shared your song with my friends already - we're all looking forward to your next release. Do you think you'll be exploring similar themes in your future songs?\"";
-  };
+  // If not mounted yet, return a simple loading state
+  if (!mounted) {
+    return null;
+  }
 
   const handleSendMessage = async (content: string) => {
     setIsLoading(true);
+    setError(null);
     
     try {
       // Add user message
       const userMessage: Message = {
-        id: Date.now().toString(),
+        id: `user-${messages.length}`,
         role: 'user',
         content,
         timestamp: new Date(),
@@ -73,12 +68,29 @@ export default function FanInteractionPage() {
       
       setMessages(prev => [...prev, userMessage]);
       
-      // Get response
-      const response = await sendMessage(content);
+      // Get response from Claude API
+      let response;
+      try {
+        response = await sendChatMessage(content, messages, songCreationPrompts.fans);
+        
+        // Check if we should switch to the next fan
+        if (messages.length > 4 && currentFan < fans.length - 1) {
+          const nextFan = currentFan + 1;
+          setCurrentFan(nextFan);
+          
+          // Add context about switching to the next fan
+          const fan = fans[nextFan];
+          response = `Jamie waves goodbye with a smile. Now here's ${fan.name}, a ${fan.age}-year-old ${fan.occupation} ${fan.avatar}: "${response}"`;
+        }
+      } catch (error) {
+        console.error('API error:', error);
+        response = "I'm sorry, there was an error processing your request. Please try again.";
+        setError('Failed to get a response. Please try again.');
+      }
       
       // Add assistant response
       const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: `assistant-${messages.length + 1}`,
         role: 'assistant',
         content: response,
         timestamp: new Date(),
@@ -87,7 +99,7 @@ export default function FanInteractionPage() {
       setMessages(prev => [...prev, assistantMessage]);
       
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error('Error in handleSendMessage:', error);
     } finally {
       setIsLoading(false);
     }
