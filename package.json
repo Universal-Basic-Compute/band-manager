@@ -17,6 +17,7 @@
     "suno-ai": "^1.0.1"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
