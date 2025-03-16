@@ -75,8 +75,22 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json();
     
+    // Log the response structure to help with debugging
+    console.log('Claude API response structure:', JSON.stringify(data, null, 2));
+    
+    // Handle different possible response structures from Claude API
+    let responseText = "I'm sorry, I couldn't generate a proper response.";
+    
+    if (data.content && Array.isArray(data.content) && data.content[0]?.text) {
+      responseText = data.content[0].text;
+    } else if (data.message?.content) {
+      responseText = data.message.content;
+    } else if (data.completion) {
+      responseText = data.completion;
+    }
+    
     return NextResponse.json({
-      response: data.content[0].text
+      response: responseText
     });
   } catch (error) {
     console.error('Error in chat API route:', error);
