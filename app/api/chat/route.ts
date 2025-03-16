@@ -27,10 +27,21 @@ export async function POST(request: NextRequest) {
       content: msg.content
     }));
 
-    // Add the system prompt if provided
-    const messages = systemPrompt
-      ? [{ role: 'system', content: systemPrompt }, ...formattedMessages]
-      : formattedMessages;
+    // Format messages correctly for Claude API
+    const messages = formattedMessages;
+    
+    // Claude expects system prompt as a separate parameter, not in the messages array
+    const requestBody: any = {
+      model: 'claude-3-7-sonnet-20240307',  // Using the latest Claude 3.7 Sonnet model
+      max_tokens: 1000,
+      messages: messages,
+      temperature: 0.7
+    };
+
+    // Add system parameter if provided
+    if (systemPrompt) {
+      requestBody.system = systemPrompt;
+    }
 
     // Call the Claude API
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -40,12 +51,7 @@ export async function POST(request: NextRequest) {
         'x-api-key': process.env.ANTHROPIC_API_KEY!,
         'anthropic-version': '2023-06-01'
       },
-      body: JSON.stringify({
-        model: 'claude-3-7-sonnet-20240307',  // Using the latest Claude 3.7 Sonnet model
-        max_tokens: 1000,
-        messages: messages,
-        temperature: 0.7
-      })
+      body: JSON.stringify(requestBody)
     });
 
     if (!response.ok) {
