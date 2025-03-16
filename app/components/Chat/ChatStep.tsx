@@ -68,25 +68,45 @@ export default function ChatStep({
       
       setMessages(prev => [...prev, userMessage]);
       
+      // Add a temporary loading message
+      const loadingMessage: Message = {
+        id: `loading-${messages.length + 1}`,
+        role: 'assistant',
+        content: '...',
+        timestamp: new Date(),
+      };
+      
+      setMessages(prev => [...prev, loadingMessage]);
+      
       // Get response from Claude API
       let response;
       try {
         response = await sendChatMessage(content, messages, systemPrompt);
+        
+        // Replace the loading message with the actual response
+        setMessages(prev => 
+          prev.filter(msg => msg.id !== loadingMessage.id).concat({
+            id: `assistant-${messages.length + 1}`,
+            role: 'assistant',
+            content: response,
+            timestamp: new Date(),
+          })
+        );
       } catch (error) {
         console.error('API error:', error);
         response = "I'm sorry, there was an error processing your request. Please try again.";
         setError('Failed to get a response. Please try again.');
+        
+        // Replace the loading message with the error message
+        setMessages(prev => 
+          prev.filter(msg => msg.id !== loadingMessage.id).concat({
+            id: `assistant-${messages.length + 1}`,
+            role: 'assistant',
+            content: response,
+            timestamp: new Date(),
+          })
+        );
       }
-      
-      // Add assistant response
-      const assistantMessage: Message = {
-        id: `assistant-${messages.length + 1}`,
-        role: 'assistant',
-        content: response,
-        timestamp: new Date(),
-      };
-      
-      setMessages(prev => [...prev, assistantMessage]);
       
       // Check if we should enable completion
       if (messages.length > 4) {
