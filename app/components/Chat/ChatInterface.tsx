@@ -69,7 +69,7 @@ export default function ChatInterface({
         onActionButtonClick={onActionButtonClick}
       />
       
-      <div className="flex-grow overflow-y-auto p-4 space-y-4">
+      <div className="flex-grow overflow-y-auto p-4 space-y-4 messages-container">
         {messages.map((message) => (
           <ChatMessage key={message.id} message={message} />
         ))}

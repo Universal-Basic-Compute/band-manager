@@ -127,3 +127,44 @@ body {
   border: 2px solid rgba(223, 189, 105, 0.3);
   animation: border-glow 3s ease-in-out infinite;
 }
+
+/* Custom Scrollbar Styling */
+/* For Webkit browsers (Chrome, Safari, newer versions of Opera) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(26, 6, 8, 0.8);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(223, 189, 105, 0.3);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(223, 189, 105, 0.6);
+  box-shadow: 0 0 8px rgba(223, 189, 105, 0.4);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(223, 189, 105, 0.3) rgba(26, 6, 8, 0.8);
+}
+
+/* Enhance the chat messages container scrolling experience */
+.messages-container {
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Add a subtle transition effect for scrollbar interactions */
+.messages-container:hover::-webkit-scrollbar-thumb {
+  background: rgba(223, 189, 105, 0.4);
+}
