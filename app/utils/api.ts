@@ -16,8 +16,7 @@ export async function sendChatMessage(message: string, history: Message[], syste
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error({
-        message: 'API error in sendChatMessage',
+      console.error('API error in sendChatMessage:', {
         status: response.status,
         error: errorData
       });
