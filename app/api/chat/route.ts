@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     
     // Claude expects system prompt as a separate parameter, not in the messages array
     const requestBody: any = {
-      model: 'claude-3-7-sonnet-20240307',  // Using the latest Claude 3.7 Sonnet model
+      model: 'claude-3-7-sonnet-latest',  // Using the latest Claude 3.7 Sonnet model
       max_tokens: 1000,
       messages: messages,
       temperature: 0.7
