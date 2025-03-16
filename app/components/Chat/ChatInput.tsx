@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 type ChatInputProps = {
   onSendMessage: (message: string) => void;
@@ -9,12 +9,18 @@ type ChatInputProps = {
 
 export default function ChatInput({ onSendMessage, isLoading = false }: ChatInputProps) {
   const [message, setMessage] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (message.trim() && !isLoading) {
       onSendMessage(message);
       setMessage('');
+      
+      // Focus back on the input after sending
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 0);
     }
   };
 
@@ -25,6 +31,7 @@ export default function ChatInput({ onSendMessage, isLoading = false }: ChatInpu
     >
       <div className="flex items-center">
         <input
+          ref={inputRef}
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}

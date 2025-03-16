@@ -39,7 +39,16 @@ export default function ChatInterface({
 
   // Scroll to bottom whenever messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Only scroll if the container is not currently being interacted with
+    const scrollContainer = messagesEndRef.current?.parentElement;
+    if (scrollContainer) {
+      const isUserScrolling = scrollContainer.scrollHeight - scrollContainer.scrollTop !== scrollContainer.clientHeight;
+      
+      // Only auto-scroll if user is already at the bottom or very close to it
+      if (!isUserScrolling) {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   }, [messages]);
 
   // Add a new message from the user and trigger the onSendMessage callback
