@@ -17,7 +17,18 @@ export async function sendChatMessage(message: string, history: Message[], syste
     if (!response.ok) {
       const errorData = await response.json();
       console.error('API error:', errorData);
-      throw new Error('Failed to get response from AI');
+      
+      // Handle different error status codes
+      if (response.status === 429) {
+        throw new Error('Rate limit exceeded. Please try again later.');
+      } else if (response.status === 401 || response.status === 403) {
+        throw new Error('Authentication error. Please check your credentials.');
+      } else if (response.status >= 500) {
+        throw new Error('Server error. Please try again later.');
+      }
+      
+      // Use the error message from the API if available
+      throw new Error(errorData.error || 'Failed to get response from AI');
     }
 
     const data = await response.json();
