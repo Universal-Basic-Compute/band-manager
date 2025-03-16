@@ -66,13 +66,15 @@ export default function ChatStep({
         timestamp: new Date(),
       };
       
-      setMessages(prev => [...prev, userMessage]);
+      // Update messages with user message
+      const updatedMessages = [...messages, userMessage];
+      setMessages(updatedMessages);
       
       // Add a temporary loading message
       const loadingMessage: Message = {
         id: `loading-${messages.length + 1}`,
         role: 'assistant',
-        content: '...',
+        content: '...', // Ensure non-empty content
         timestamp: new Date(),
       };
       
@@ -81,17 +83,30 @@ export default function ChatStep({
       // Get response from Claude API
       let response;
       try {
-        response = await sendChatMessage(content, messages, systemPrompt);
+        // Send only the messages up to the user's message (not including the loading message)
+        response = await sendChatMessage(content, updatedMessages, systemPrompt);
         
-        // Replace the loading message with the actual response
-        setMessages(prev => 
-          prev.filter(msg => msg.id !== loadingMessage.id).concat({
-            id: `assistant-${messages.length + 1}`,
-            role: 'assistant',
-            content: response,
-            timestamp: new Date(),
-          })
-        );
+        if (response && response.trim() !== '') {
+          // Replace the loading message with the actual response
+          setMessages(prev => 
+            prev.filter(msg => msg.id !== loadingMessage.id).concat({
+              id: `assistant-${messages.length + 1}`,
+              role: 'assistant',
+              content: response,
+              timestamp: new Date(),
+            })
+          );
+        } else {
+          // If we got an empty response, use a fallback message
+          setMessages(prev => 
+            prev.filter(msg => msg.id !== loadingMessage.id).concat({
+              id: `assistant-${messages.length + 1}`,
+              role: 'assistant',
+              content: "I'm sorry, I couldn't generate a proper response.",
+              timestamp: new Date(),
+            })
+          );
+        }
       } catch (error) {
         console.error('API error:', error);
         response = "I'm sorry, there was an error processing your request. Please try again.";

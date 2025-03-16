@@ -22,13 +22,21 @@ export async function POST(request: NextRequest) {
     }
 
     // Format the conversation history for Claude
-    const formattedMessages = history.map(msg => ({
-      role: msg.role,
-      content: msg.content
-    }));
+    const formattedMessages = history
+      .filter(msg => msg.content && msg.content.trim() !== '') // Filter out empty messages
+      .map(msg => ({
+        role: msg.role,
+        content: msg.content
+      }));
+
+    // Add the current message
+    const currentMessage = {
+      role: 'user',
+      content: message.trim()
+    };
 
     // Format messages correctly for Claude API
-    const messages = formattedMessages;
+    const messages = [...formattedMessages, currentMessage];
     
     // Claude expects system prompt as a separate parameter, not in the messages array
     const requestBody: any = {
